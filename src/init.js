@@ -1,4 +1,7 @@
 'use strict';
 
+import { timer } from "./timer.js"
 
-console.log('hello');
+timer.render()
+
+//timer.timer(20)
