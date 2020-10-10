@@ -53,7 +53,8 @@ const timer = {
 
         //Timer Container
         const containerDiv = document.createElement('div');
-        containerDiv.id = 'timerContainer'
+        containerDiv.id = 'timerContainer';
+        containerDiv.classList.add('container');
 
         //Buttons Container
         const buttonsDiv = document.createElement('div');
@@ -110,7 +111,7 @@ const timer = {
         containerDiv.appendChild(timerDiv);
         containerDiv.appendChild(startButton);
 
-        document.getElementById('user-interface').appendChild(containerDiv)
+        document.getElementById('timer').appendChild(containerDiv)
 
         const buttons = document.querySelectorAll('.timerMenuButton');
         buttons.forEach(button => button.addEventListener('click', this.timerButtonsHandler.bind(this)))
