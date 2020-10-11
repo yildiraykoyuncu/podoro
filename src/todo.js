@@ -45,15 +45,15 @@ export class Todo {
 
         //header
         const headerDiv = document.createElement('div');
-        headerDiv.id = 'header div';
+        headerDiv.id = 'headerDiv';
 
-        const header = document.createElement('h1');
+        const header = document.createElement('span');
         header.textContent = 'Tasks';
 
         const optionBtn = document.createElement('button');
         optionBtn.type = 'button';
         optionBtn.id = 'todoOptionBtn';
-        optionBtn.textContent = '...';
+        optionBtn.innerHTML = '<i class="fas fa-ellipsis-v"></i>';
 
         headerDiv.appendChild(header);
         headerDiv.appendChild(optionBtn);
@@ -69,7 +69,7 @@ export class Todo {
         const addTodoBtn = document.createElement('button');
         addTodoBtn.type = 'button';
         addTodoBtn.id = 'addTodoBtn'
-        addTodoBtn.innerText = 'Add Task'
+        addTodoBtn.innerHTML = '<i class="fas fa-plus-circle"></i> Add Task'
         console.log(addTodoBtn)
         userInt.appendChild(addTodoBtn)
         addTodoBtn.addEventListener('click', this.addTodoScreenCall.bind(this))
@@ -109,22 +109,23 @@ export class Todo {
 
     static renderAddTodoWindow() {
         //Add todo screen
-
         const addTodoDiv = document.createElement('div');
-
-        // input field
+        addTodoDiv.id = 'addTodoDiv'
+            // input field
+        const inputDiv = document.createElement('div');
+        inputDiv.id = 'inputDiv'
 
         const inputField = document.createElement('input');
         inputField.type = 'text';
         inputField.id = 'inputField';
-        inputField.placeholder = 'what are you working on?'
-        addTodoDiv.appendChild(inputField)
+        inputField.placeholder = 'What are you working on?'
+        inputDiv.appendChild(inputField)
 
 
         // Number of estimated pomodoros
-        const title = document.createElement('h3');
+        const title = document.createElement('span');
         title.textContent = 'Est Pomodoros'
-        addTodoDiv.appendChild(title);
+        inputDiv.appendChild(title);
 
         const estPomodoros = document.createElement('input');
         estPomodoros.type = 'number';
@@ -132,7 +133,9 @@ export class Todo {
         estPomodoros.step = '1';
         estPomodoros.value = '1';
         estPomodoros.id = 'inputNumber'
-        addTodoDiv.appendChild(estPomodoros);
+        inputDiv.appendChild(estPomodoros);
+
+        addTodoDiv.appendChild(inputDiv)
 
         // save and cancel buttons
 
@@ -142,11 +145,13 @@ export class Todo {
         const cancelBtn = document.createElement('button');
         cancelBtn.type = 'button';
         cancelBtn.id = 'cancelBtn';
+        cancelBtn.classList.add('confirmationBtn')
         cancelBtn.textContent = 'Cancel'
 
         const saveBtn = document.createElement('button');
         saveBtn.type = 'button';
         saveBtn.id = 'saveBtn';
+        saveBtn.classList.add('confirmationBtn')
         saveBtn.textContent = 'Save'
 
         confirmDiv.appendChild(cancelBtn);

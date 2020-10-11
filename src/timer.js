@@ -104,7 +104,7 @@ const timer = {
 
         const startButton = document.createElement('button');
         startButton.id = 'startButton'
-        startButton.textContent = 'Start'
+        startButton.textContent = 'START'
         startButton.addEventListener('click', this.startTimerHandler.bind(this))
 
         containerDiv.appendChild(buttonsDiv);
