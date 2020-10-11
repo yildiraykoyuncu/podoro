@@ -1,12 +1,23 @@
 const timer = {
     state: {
         seconds: 1500,
+        counting: false,
 
     },
-    startTimerHandler() {
-        const seconds = this.state.seconds;
-        this.timer(seconds);
-        console.log('start')
+    startTimerHandler(event) {
+        if (!this.state.counting) {
+            const seconds = this.state.seconds;
+            this.timer(seconds);
+            console.log('start')
+            event.target.innerHTML = 'STOP'
+        } else if (this.state.counting) {
+            const countdown = this.state.intervalID
+            clearInterval(countdown)
+            event.target.innerHTML = 'START'
+        }
+
+        this.state.counting = !this.state.counting
+
     },
     timerButtonsHandler(event) {
 
@@ -14,6 +25,9 @@ const timer = {
         const duration = Number(event.target.dataset.duration);
         this.displayTimeLeft(duration);
         this.state.seconds = duration;
+        const color = event.target.dataset.color;
+        document.body.style.backgroundColor = color;
+        document.getElementById('startButton').style.color = color;
         const countdown = this.state.intervalID;
         clearInterval(countdown);
     },
@@ -35,7 +49,7 @@ const timer = {
                 clearInterval(countdown)
                 return
             }
-
+            this.state.seconds = secondsLeft;
             this.displayTimeLeft(secondsLeft);
         }, 1000);
 
@@ -66,6 +80,7 @@ const timer = {
         pomodoroButton.id = 'pomodoroButton';
         pomodoroButton.classList.add('timerMenuButton');
         pomodoroButton.dataset.duration = '1500';
+        pomodoroButton.dataset.color = '#f05b56';
         pomodoroButton.textContent = 'Pomodoro';
 
         //Short break button
@@ -74,6 +89,7 @@ const timer = {
         shortBreakButton.id = 'shortBreakButton';
         shortBreakButton.classList.add('timerMenuButton');;
         shortBreakButton.dataset.duration = '300';
+        shortBreakButton.dataset.color = '#4ca6a9'
         shortBreakButton.textContent = 'Short Break';
 
         //Long break Button
@@ -83,6 +99,7 @@ const timer = {
         longBreakButton.id = 'longBreakButton';
         longBreakButton.classList.add('timerMenuButton');
         longBreakButton.dataset.duration = '900';
+        longBreakButton.dataset.color = '#498fc1'
         longBreakButton.textContent = 'Long Break';
 
 

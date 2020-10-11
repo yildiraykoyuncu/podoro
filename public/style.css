@@ -4,6 +4,7 @@
 
 body {
     background-color: #f05b56;
+    transition: background-color 1s;
 }
 
 main#user-interface {
@@ -66,7 +67,8 @@ button#startButton {
 
 button#startButton:focus,
 button#todoOptionBtn:focus,
-button#addTodoBtn:focus {
+button#addTodoBtn:focus,
+button.timerMenuButton:focus {
     outline: none;
 }
 
