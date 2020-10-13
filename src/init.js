@@ -1,9 +1,9 @@
 'use strict';
 
 import { timer } from "./timer.js"
-import { Todo } from './todo.js'
+import { state } from './data.js'
 
 timer.render()
-Todo.render()
+state.render()
 
 //timer.timer(20)
