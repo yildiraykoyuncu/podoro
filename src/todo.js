@@ -1,8 +1,7 @@
 import { todoList } from './data.js'
+import { logger } from '../lib/logger.js'
 
-const state = {
-    todos: []
-}
+
 
 export class Todo {
 
@@ -10,6 +9,21 @@ export class Todo {
         this.text = text;
         this.estCycles = estCycles;
         this.isCompleted = false;
+    }
+
+    toggleCompleted(event) {
+        const position = Number(event.target.dataset.index)
+        if (position < 0 || todoList.todos.length <= position) {
+            return;
+        }
+        const todo = todoList.todos[position];
+        todo.isCompleted = !todo.isCompleted;
+
+        logger.push({
+            action: 'toggle complete',
+            todoList,
+            event
+        })
     }
 
     static addTodoScreenCall(event) {
@@ -28,8 +42,15 @@ export class Todo {
             Todo.render();
         } else if (event.target.id === 'cancelBtn') {
             Todo.render();
+        } else {
+            return
         }
 
+        logger.push({
+            action: 'add todo',
+            todoList,
+            event
+        })
 
     }
 
@@ -69,7 +90,7 @@ export class Todo {
         addTodoBtn.type = 'button';
         addTodoBtn.id = 'addTodoBtn'
         addTodoBtn.innerHTML = '<i class="fas fa-plus-circle"></i> Add Task'
-        console.log(addTodoBtn)
+
         userInt.appendChild(addTodoBtn)
         addTodoBtn.addEventListener('click', this.addTodoScreenCall.bind(this))
 
@@ -78,12 +99,18 @@ export class Todo {
 
         if (todoList.todos.length === 0) { return }
 
-        const renderedTodos = todoList.todos.map(todo => {
+        const renderedTodos = todoList.todos.map((todo, i) => {
             const li = document.createElement('li');
             li.classList.add('todoItem');
 
             const checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
+            checkbox.dataset.index = i;
+            checkbox.addEventListener('click', todo.toggleCompleted)
+
+            if (todo.isCompleted) {
+                checkbox.checked = true;
+            }
 
             const body = document.createElement('span');
             body.textContent = todo.text;
@@ -97,7 +124,7 @@ export class Todo {
             return all;
         }, document.createElement('ul'))
 
-        console.log(renderedTodos)
+
 
         userInt.insertBefore(renderedTodos, addTodoBtn);
 
