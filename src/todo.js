@@ -1,3 +1,5 @@
+import { todoList } from './data.js'
+
 const state = {
     todos: []
 }
@@ -22,10 +24,7 @@ export class Todo {
             const text = document.getElementById('inputField').value;
             const estCycles = document.getElementById('inputNumber').value;
             const todo = new Todo(text, estCycles);
-            state.todos.push(todo)
-
-            console.log(state.todos)
-
+            todoList.todos.push(todo)
             Todo.render();
         } else if (event.target.id === 'cancelBtn') {
             Todo.render();
@@ -77,9 +76,9 @@ export class Todo {
         //todos
 
 
-        if (state.todos.length === 0) { return }
+        if (todoList.todos.length === 0) { return }
 
-        const renderedTodos = state.todos.map(todo => {
+        const renderedTodos = todoList.todos.map(todo => {
             const li = document.createElement('li');
             li.classList.add('todoItem');
 
