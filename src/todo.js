@@ -32,16 +32,12 @@ export class Todo {
     }
 
     toggleCompleted(event) {
-        const position = Number(event.target.dataset.index)
-        if (position < 0 || todoList.todos.length <= position) {
-            return;
-        }
-        const todo = todoList.todos[position];
-        todo.isCompleted = !todo.isCompleted;
+
+        this.isCompleted = !this.isCompleted
 
         logger.push({
             action: 'toggle complete',
-            todoList,
+            todo: this,
             event
         })
 
